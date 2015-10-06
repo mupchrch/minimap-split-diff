@@ -15,9 +15,9 @@ class MinimapSplitDiffBinding
     @editor = null
 
   handleCreatedMarker: (marker) ->
+    #this would take the line color from the theme:
+    # scope: '.minimap .line.split-diff-added'
     if marker.matchesProperties(class: 'split-diff-added')
-      #scope: '.minimap .line.split-diff-added'
       @minimap.decorateMarker(marker, type: 'line', class: 'added')
     else if marker.matchesProperties(class: 'split-diff-removed')
-      #scope: '.minimap .line.split-diff-removed'
       @minimap.decorateMarker(marker, type: 'line', class: 'removed')

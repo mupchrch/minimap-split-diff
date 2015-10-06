@@ -30,7 +30,6 @@ module.exports =
       @bindingsById[minimap.id] = binding
 
       @subscriptionsById[minimap.id] = minimap.onDidDestroy =>
-        console.log('minimap destroyed')
         @subscriptionsById[minimap.id]?.dispose()
         @bindingsById[minimap.id]?.destroy()
 
