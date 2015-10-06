@@ -1,0 +1,21 @@
+{
+  "name": "minimap-split-diff",
+  "main": "./lib/minimap-split-diff",
+  "version": "0.0.0",
+  "description": "A minimap plugin for the Split Diff package",
+  "repository": "https://github.com/atom/minimap-split-diff",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "consumedServices": {
+    "minimap": {
+      "versions": {
+        "1.0.0": "consumeMinimapServiceV1"
+      }
+    }
+  },
+  "dependencies": {
+    "event-kit": ">= 0.7.2"
+  }
+}
