@@ -40,4 +40,6 @@ module.exports =
     return unless @active
 
     @active = false
+    for i of @bindingsById
+      @bindingsById[i].destroy()
     @subscriptions.dispose()
