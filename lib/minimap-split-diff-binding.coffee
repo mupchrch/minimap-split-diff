@@ -7,13 +7,15 @@ class MinimapSplitDiffBinding
     @splitDecorations = []
     @subscriptions = new CompositeDisposable
 
-    @editor.findMarkers({class: 'split-diff-added'}).forEach (marker1) =>
-      @handleMarker(marker1)
-    @editor.findMarkers({class: 'split-diff-removed'}).forEach (marker2) =>
-      @handleMarker(marker2)
+    # we will not use this binding if there was no editor associated
+    if @editor
+      @editor.findMarkers({class: 'split-diff-added'}).forEach (marker1) =>
+        @handleMarker(marker1)
+      @editor.findMarkers({class: 'split-diff-removed'}).forEach (marker2) =>
+        @handleMarker(marker2)
 
-    @subscriptions.add @editor.displayBuffer.onDidCreateMarker (marker) =>
-      @handleMarker(marker)
+      @subscriptions.add @editor.displayBuffer.onDidCreateMarker (marker) =>
+        @handleMarker(marker)
 
   destroy: ->
     @removeMarkers()
@@ -23,8 +25,9 @@ class MinimapSplitDiffBinding
     @editor = null
 
   removeMarkers: ->
-    for decoration in @splitDecorations
-      decoration.destroy()
+    if @splitDecorations
+      for decoration in @splitDecorations
+        decoration.destroy()
 
   handleMarker: (marker) ->
     #this would take the line color from the theme:
