@@ -36,6 +36,8 @@ class MinimapSplitDiffBinding
       @createDecoration(marker, 'added')
     else if marker.matchesProperties(class: 'split-diff-removed')
       @createDecoration(marker, 'removed')
+    else if marker.matchesProperties(class: 'split-diff-selected')
+      @createDecoration(marker, 'selected')
 
   createDecoration: (marker, decorationClass) ->
     minimapDecoration = @minimap.decorateMarker(marker, type: 'line', class: decorationClass)
