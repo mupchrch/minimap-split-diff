@@ -1,3 +1,6 @@
+## 0.3.1 - 2016-06-07
+* Fixed Uncaught TypeError (introduced by Atom v1.9beta) #3
+
 ## 0.3.0 - 2015-11-03
 * Added ability to show next/prev diff
 

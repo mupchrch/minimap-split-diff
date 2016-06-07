@@ -13,8 +13,7 @@ class MinimapSplitDiffBinding
         @handleMarker(marker1)
       @editor.findMarkers({class: 'split-diff-removed'}).forEach (marker2) =>
         @handleMarker(marker2)
-
-      @subscriptions.add @editor.displayBuffer.onDidCreateMarker (marker) =>
+      @subscriptions.add @editor.getDefaultMarkerLayer().onDidCreateMarker (marker) =>
         @handleMarker(marker)
 
   destroy: ->
@@ -30,13 +29,12 @@ class MinimapSplitDiffBinding
         decoration.destroy()
 
   handleMarker: (marker) ->
-    #this would take the line color from the theme:
-    # scope: '.minimap .line.split-diff-added'
-    if marker.matchesProperties(class: 'split-diff-added')
+    markerClass = marker.getProperties().class
+    if markerClass == "split-diff-added"
       @createDecoration(marker, 'added')
-    else if marker.matchesProperties(class: 'split-diff-removed')
+    else if markerClass == "split-diff-removed"
       @createDecoration(marker, 'removed')
-    else if marker.matchesProperties(class: 'split-diff-selected')
+    else if markerClass == "split-diff-selected"
       @createDecoration(marker, 'selected')
 
   createDecoration: (marker, decorationClass) ->
