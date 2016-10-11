@@ -1,4 +1,4 @@
-## 0.3.1 - 2016-10-11
+## 0.3.2 - 2016-10-11
 * Fixed colors to use syntax theme #4 - thanks noyouaretheman!
 
 ## 0.3.1 - 2016-06-07
