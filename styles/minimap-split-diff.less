@@ -3,15 +3,16 @@
 // See https://github.com/atom/atom-dark-ui/blob/master/stylesheets/ui-variables.less
 // for a full listing of what's available.
 @import "ui-variables";
+@import "syntax-variables";
 
 .minimap .added {
-  background: green;
+  background: @syntax-color-added;
 }
 
 .minimap .removed {
-  background: red;
+  background: @syntax-color-removed;
 }
 
 .minimap .selected {
-  background: orange;
+  background: @syntax-color-modified;
 }
