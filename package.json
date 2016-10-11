@@ -1,7 +1,7 @@
 {
   "name": "minimap-split-diff",
   "main": "./lib/minimap-split-diff",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A minimap plugin for the Split Diff package",
   "repository": "https://github.com/mupchrch/minimap-split-diff",
   "license": "MIT",
