@@ -1,3 +1,6 @@
+## 0.3.3 - 2017-02-09
+* Changed to now use split-diff's service API to get marker layers
+
 ## 0.3.2 - 2016-10-11
 * Fixed colors to use syntax theme #4 - thanks noyouaretheman!
 

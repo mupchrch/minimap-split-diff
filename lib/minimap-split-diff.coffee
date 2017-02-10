@@ -2,6 +2,7 @@
 
 module.exports =
   active: false
+  markerLayers: null
   bindingsById: {}
   subscriptionsById: {}
   subscriptions: {}
@@ -11,12 +12,23 @@ module.exports =
   activate: (state) ->
     @subscriptions = new CompositeDisposable
 
+  consumeSplitDiff: (splitDiffService) ->
+    @waitForDiff(splitDiffService)
+
   consumeMinimapServiceV1: (@minimap) ->
     @minimap.registerPlugin 'split-diff', this
 
   deactivate: ->
     @minimap.unregisterPlugin 'split-diff'
     @minimap = null
+
+  waitForDiff: (splitDiffService)->
+    splitDiffService.getMarkerLayers().then (@markerLayers) =>
+      for i of @bindingsById
+        @bindingsById[i].handleMarkerLayers(@markerLayers)
+      @markerLayers.editor1.lineMarkerLayer.onDidDestroy () =>
+        @markerLayers = null
+        @waitForDiff(splitDiffService)
 
   activatePlugin: ->
     return if @active
@@ -28,6 +40,8 @@ module.exports =
 
       binding = new MinimapSplitDiffBinding(minimap)
       @bindingsById[minimap.id] = binding
+
+      binding.handleMarkerLayers(@markerLayers)
 
       @subscriptionsById[minimap.id] = minimap.onDidDestroy =>
         @subscriptionsById[minimap.id]?.dispose()
