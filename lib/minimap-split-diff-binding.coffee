@@ -7,29 +7,14 @@ class MinimapSplitDiffBinding
     @splitDecorations = []
     @subscriptions = new CompositeDisposable
 
-  handleMarkerLayers: (markerLayers) ->
-    if markerLayers?
-      editor1 = markerLayers.editor1
-      editor2 = markerLayers.editor2
-
-      if @editor?.id == editor1.id
-        # handle current markers
-        @handleMarkerLayer(editor1.lineMarkerLayer, editor1.highlightType)
-        @handleMarkerLayer(editor1.selectionMarkerLayer, 'selected')
-        # then attach update listener for future markers
-        editor1.lineMarkerLayer.onDidUpdate () =>
-          @handleMarkerLayer(editor1.lineMarkerLayer, editor1.highlightType)
-        editor1.selectionMarkerLayer.onDidUpdate () =>
-          @handleMarkerLayer(editor1.selectionMarkerLayer, 'selected')
-      else if @editor?.id == editor2.id
-        # handle current markers
-        @handleMarkerLayer(editor2.lineMarkerLayer, editor2.highlightType)
-        @handleMarkerLayer(editor2.selectionMarkerLayer, 'selected')
-        # then attach update listener for future markers
-        editor2.lineMarkerLayer.onDidUpdate () =>
-          @handleMarkerLayer(editor2.lineMarkerLayer, editor2.highlightType)
-        editor2.selectionMarkerLayer.onDidUpdate () =>
-          @handleMarkerLayer(editor2.selectionMarkerLayer, 'selected')
+    # we will not use this binding if there was no editor associated
+    if @editor
+      @editor.findMarkers({class: 'split-diff-added'}).forEach (marker1) =>
+        @handleMarker(marker1)
+      @editor.findMarkers({class: 'split-diff-removed'}).forEach (marker2) =>
+        @handleMarker(marker2)
+      @subscriptions.add @editor.getDefaultMarkerLayer().onDidCreateMarker (marker) =>
+        @handleMarker(marker)
 
   destroy: ->
     @removeMarkers()
@@ -43,11 +28,15 @@ class MinimapSplitDiffBinding
       for decoration in @splitDecorations
         decoration.destroy()
 
-  handleMarkerLayer: (markerLayer, highlightType) ->
-    markerLayer.getMarkers().forEach (marker) =>
-      @createDecoration(marker, highlightType)
+  handleMarker: (marker) ->
+    markerClass = marker.getProperties().class
+    if markerClass == "split-diff-added"
+      @createDecoration(marker, 'added')
+    else if markerClass == "split-diff-removed"
+      @createDecoration(marker, 'removed')
+    else if markerClass == "split-diff-selected"
+      @createDecoration(marker, 'selected')
 
-  # highlight types include: added, removed, selected
-  createDecoration: (marker, highlightType) ->
-    minimapDecoration = @minimap.decorateMarker(marker, type: 'line', class: highlightType)
+  createDecoration: (marker, decorationClass) ->
+    minimapDecoration = @minimap.decorateMarker(marker, type: 'line', class: decorationClass)
     @splitDecorations.push minimapDecoration
