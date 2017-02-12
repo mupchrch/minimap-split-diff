@@ -1,3 +1,6 @@
+## 0.3.4 - 2017-02-12
+* Fixed error in Atom v1.13 due to MarkerLayer bug (rollback changes)
+
 ## 0.3.3 - 2017-02-09
 * Changed to now use split-diff's service API to get marker layers
 
