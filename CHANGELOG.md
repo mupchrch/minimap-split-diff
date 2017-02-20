@@ -1,3 +1,6 @@
+## 0.3.6 - 2017-02-20
+* Added information about style customization to README
+
 ## 0.3.5 - 2017-02-12
 * Rerelease changes made for v0.3.3 but scoped to Atom v1.14 and greater
 
