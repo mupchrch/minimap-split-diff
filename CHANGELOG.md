@@ -1,3 +1,6 @@
+## 0.3.7 - 2017-03-17
+* Changed README to specify split-diff and minimap packages are needed - thanks kjmitch!
+
 ## 0.3.6 - 2017-02-20
 * Added information about style customization to README
 
