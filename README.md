@@ -1,4 +1,4 @@
-# minimap-split-diff package
+# minimap-split-diff [![Installs!](https://img.shields.io/apm/dm/minimap-split-diff.svg?style=flat-square)](https://atom.io/packages/minimap-split-diff) [![Version!](https://img.shields.io/apm/v/minimap-split-diff.svg?style=flat-square)](https://atom.io/packages/minimap-split-diff) [![License](https://img.shields.io/apm/l/minimap-split-diff.svg?style=flat-square)](https://github.com/mupchrch/minimap-split-diff/blob/master/LICENSE.md)
 
 A plugin that adds [Split Diff's](https://github.com/mupchrch/split-diff) highlighting to the [Minimap](https://github.com/atom-minimap/minimap) view, making it easier to find differences throughout file versions in Atom.
 
